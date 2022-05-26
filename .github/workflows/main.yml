@@ -52,7 +52,7 @@ jobs:
 
       # Set up ZAP
       - name: Install OWASP ZAP
-      - run: |
+        run: |
           mkdir -p ./zap
           cd ./zap
           wget -N https://github.com/zaproxy/zaproxy/releases/download/v2.11.1/ZAP_2.11.1_Linux.tar.gz
