@@ -58,7 +58,7 @@ jobs:
       # - name: Run ZAP Daemon
       #   run: ./zap/ZAP_2.11.1/zap.sh -daemon -host 0.0.0.0 -port 8090 -config api.addrs.addr.name=".*" -config api.addrs.addr.regex=true -config api.key=12345 -addoninstall ascanrulesAlpha -addoninstall ascanrulesBeta -addoninstall network > /dev/null &
       - name: Start ZAP Docker
-        run: docker run -u zap -p 8090:8090 -i owasp/zap2docker-stable zap.sh -daemon -host 0.0.0.0 -port 8090 -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true -config api.key=12345 -addoninstall ascanrulesAlpha -addoninstall ascanrulesBeta -addoninstall network
+        run: docker run -u zap -p 8090:8090 -d owasp/zap2docker-stable zap.sh -daemon -host 0.0.0.0 -port 8090 -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true -config api.key=12345 -addoninstall ascanrulesAlpha -addoninstall ascanrulesBeta -addoninstall network
       
       - name: Sleep for a bit to be docker up
         uses: jakejarvis/wait-action@master
