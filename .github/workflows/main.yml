@@ -34,3 +34,46 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+      # Set up Python 3.7.10
+      - name: Setup Python 3.7.10
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7.10
+
+      # Install python dependency
+      - name: Install python deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests python-owasp-zap-v2.4
+
+      - name: Get Working Dir
+        run: echo $(PWD)
+
+      # Set up ZAP
+      - name: Install OWASP ZAP
+      - run: |
+          mkdir -p ./zap
+          cd ./zap
+          wget -N https://github.com/zaproxy/zaproxy/releases/download/v2.11.1/ZAP_2.11.1_Linux.tar.gz
+          tar -zxvf ZAP_2.11.1_Linux.tar.gz
+          rm ZAP_2.11.1_Linux.tar.gz
+          echo 'export PATH_ZAP_SH=./zap/ZAP_2.11.1/zap.sh' >> ~/.bashrc
+          echo 'export ZAP_PORT=8090' >> ~/.bashrc
+          echo 'sh -c "$PATH_ZAP_SH -daemon -host 0.0.0.0 -port $ZAP_PORT -configfile ./zap/ZAP_2.9.0/conf" > /dev/null & ' > start-zap
+          echo 'sleep 40' >> start-zap
+          echo 'pkill -f zap' > stop-zap
+          chmod +x start-zap
+          chmod +x stop-zap
+          echo $pwd
+      
+      # Run ZAP in daemon mode
+      - name: Run ZAP Daemon
+        run: ./zap/ZAP_2.11.1/zap.sh -daemon -host 0.0.0.0 -port 8090 -config api.addrs.addr.name=".*" -config api.addrs.addr.regex=true -config api.key=12345 -addoninstall ascanrulesAlpha -addoninstall ascanrulesBeta -addoninstall network > /dev/null &
+      - name: Sleep for a bit
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '20s'
+
+
+      
