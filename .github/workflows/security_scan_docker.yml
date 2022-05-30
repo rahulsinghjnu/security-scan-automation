@@ -36,11 +36,6 @@ jobs:
           docker run -u zap -p 8090:8090 -d owasp/zap2docker-stable zap.sh -daemon -host 0.0.0.0 -port 8090 -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true -config api.key=12345 -addoninstall ascanrulesAlpha -addoninstall ascanrulesBeta -addoninstall network
           sleep 20
       
-      # - name: Sleep for a bit to be docker up
-      #   uses: jakejarvis/wait-action@master
-      #   with:
-      #     time: '20s'
-
       - name: Run Script to get ZAP Stats
         run: bash e2eTest.sh
 

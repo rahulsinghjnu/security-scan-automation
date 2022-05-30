@@ -1,0 +1,26 @@
+{
+	"info": {
+		"_postman_id": "62cb5b83-7838-47b8-a246-27ec036c2e9b",
+		"name": "TestCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get_Google",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://google.co.in",
+					"protocol": "https",
+					"host": [
+						"google",
+						"co",
+						"in"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
